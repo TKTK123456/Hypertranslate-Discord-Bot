@@ -7,15 +7,17 @@ const client = new Client({
     GatewayIntentBits.MessageContent,]
 });
 import { readdirSync } from 'node:fs';
-import { resolve, join} from 'node:path';
+import { resolve, join } from 'node:path';
 const __dirname = resolve();
-const directoryPath = join(__dirname, 'commands/utility');
-console.log(__dirname);
-const files = readdirSync(directoryPath)
-   .filter(fileName => fileName.endsWith('.js'))
-   .map(fileName => fileName.replace('.js', ''))
-   .join('\n');
-console.log(`${files} from ${directoryPath}`);
+const foldersPath = join(__dirname, 'commands');
+const commandFolders = readdirSync(foldersPath);
+let files ='';
+for(const folder of commandFolders) {
+  const commandsPath = join(foldersPath, folder);
+  files += readdirSync(commandsPath)
+    .filter(file => file.endsWith('.js'))
+    .map(file => file.replace('.js', '\n'))
+}
 const commandList = new EmbedBuilder()
 .setTitle(`**Help**`)
 .setDescription(files)
