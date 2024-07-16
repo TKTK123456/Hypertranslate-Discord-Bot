@@ -1,4 +1,4 @@
-import translate, { supportedLangs, checkLang } from './translate.js'
+import translate, { supportedLangs } from './translate.js'
 
 /**
  * @param {String} text
@@ -20,12 +20,8 @@ export default async function hypertranslate(text, begin_lang, end_lang, count) 
   let currentText = realText,
     currentSource = begin_lang
   for (let progress = 0; progress < count; progress++) {
-    const langNumber = Math.floor(Math.random() * (supportedLangs.length + 1))
+    const langNumber = Math.floor(Math.random() * (supportedLangs.length))
     const nextTarget = progress < count - 1 ? supportedLangs[langNumber] : end_lang
-    console.log(`Translating from ${currentSource} to ${nextTarget}`);
-
-    // Check if nextTarget is valid
-    checkLang(nextTarget);
     const newTranslation = await translate(currentText, currentSource, nextTarget)
     currentText = newTranslation[0]
     currentSource = nextTarget
