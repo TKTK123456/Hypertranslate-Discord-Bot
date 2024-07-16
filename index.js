@@ -3,8 +3,9 @@ import { Client, GatewayIntentBits, Collection, Events} from 'discord.js';
 import fs from 'node:fs';
 import path from 'node:path';
 import repl from 'repl';
+import getLang from './langs.js';
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers] });
-const __dirname = path.resolve();
+const __dirname = path.resolve(); 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });

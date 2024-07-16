@@ -20,7 +20,6 @@ export const supportedLangs = ["af", "sq", "am", "ar", "hy", "az", "eu", "bn", "
 export default async function translate(text, sourceLang, targetLang) {
   checkLang(sourceLang)
   checkLang(targetLang)
-
   let url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURI(text)}`
 
   const [result, lang] = await request(url)
@@ -40,7 +39,8 @@ export default async function translate(text, sourceLang, targetLang) {
 }
 
 /** @param {Lang} lang */
-function checkLang(lang) {
-  if (!supportedLangs.includes(lang) && lang != "auto")
-    throw new Error("Invalid lang used: "+lang)
+export async function checkLang(lang) {
+  if (!supportedLangs.includes(lang)) {
+    throw new Error(`Invalid lang used: ${lang}`) 
+  }
 }
