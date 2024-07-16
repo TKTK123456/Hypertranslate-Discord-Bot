@@ -737,4 +737,7 @@ export default async function getLang(langName) {
     }
   }
   return null; // Return null if the language name is not found
+};
+export async function getLangName(langCode) {
+return isoLangs[langCode].name;
 }

@@ -28,17 +28,17 @@ export const data = new SlashCommandBuilder()
       option.setName('count')
         .setDescription('The number of times to translate')
         .setRequired(true))
-export async function execute(client, interaction, wait) {
+export async function execute(client, interaction) {
   await interaction.reply(`Translating...`)
   try {
     const text = await interaction.options.getString('text')
-    console.log(text)
     const startLang = await getLang(interaction.options.getString('begin_lang'))
     const endLang = await getLang(interaction.options.getString('end_lang'))
     const count = await interaction.options.getInteger('count')
-    console.log(text, startLang, endLang, count)
+    console.log(`Starting translating ${text} ${count} times, staring with: ${interaction.options.getString('begin_lang')}, ending in: ${interaction.options.getString('end_lang')}`)
     const output = await hypertranslate(text, startLang, endLang, count)
     await interaction.editReply(output)
+    console.log(`Done translating ${text} ${count} times, staring with: ${interaction.options.getString('begin_lang')}, ending in: ${interaction.options.getString('end_lang')}`)
   } catch (error) {
     await interaction.editReply(`An error occured while translating please try again later.`)
     console.error(`Error executing /hyper-translate: ${error}`);
